@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<form method="get" action="/auth/uploads/History/graph" enctype="multipart/form-data">
+       
+        <button id="showGraphBtn">Show Graph</button>
+        
+
+</form>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User History</title>
+</head>
+<style>
+    /* Style pour le bouton */
+    #showGraphBtn {
+        background-color: #4CAF50; /* Couleur de fond */
+        color: white; /* Couleur du texte */
+        padding: 10px 20px; /* Rembourrage */
+        border: none; /* Pas de bordure */
+        border-radius: 4px; /* Coins arrondis */
+        font-size: 16px; /* Taille de la police */
+        cursor: pointer; /* Curseur de la souris */
+    }
+
+    /* Au survol, changement de couleur de fond */
+    #showGraphBtn:hover {
+        background-color: #45a049;
+    }
+
+    /* Au clic, changement de couleur de fond */
+    #showGraphBtn:active {
+        background-color: #3e8e41;
+    }
+    .logout-container {
+    position: fixed;
+    top: 20px; /* Adjust as needed */
+    right: 20px; /* Adjust as needed */
+    display: flex;
+    align-items: center;
+}
+
+.logout-container form {
+    margin: 0;
+}
+
+.logout-container button {
+    background-color: #d9534f; /* Red color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-right: 10px; /* Spacing between buttons */
+}
+
+.logout-container button:hover {
+    background-color: #c9302c; /* Darker shade of red on hover */
+}
+
+.home-button {
+    background-color: transparent;
+    border: 2px solid #007bff; /* Blue border */
+    color: #007bff; /* Blue text */
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none; /* Remove underline */
+    transition: background-color 0.3s ease;
+    margin-right: 10px; /* Spacing between buttons */
+}
+
+.home-button:hover {
+    background-color: #007bff; /* Dark blue on hover */
+    color: white; /* White text on hover */
+}
+</style>
+<body>
+    <style>
+        /* Styling for the container */
+        .container {
+            margin-top: 50px;
+            font-family: Arial, sans-serif; /* Change font to Arial or any other desired font */
+        }
+        /* Styling for the table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6; /* Using Bootstrap's light grey color */
+        }
+        th {
+            background-color: #28a745; /* Change to desired header background color (green) */
+            color: #749e97; /* Change to desired header text color (white) */
+        }
+        /* Add some color to table rows alternately */
+        tbody tr:nth-child(even) {
+            background-color: #e9f6ef; /* Change to desired even row background color (light green) */
+        }
+        tbody tr:nth-child(odd) {
+            background-color: #ffffff; /* Change to desired odd row background color (white) */
+        }
+    </style>
+     <div class="logout-container">
+        <form action="{{ url_for('auth.logout') }}" method="post">
+            <button type="submit">Logout</button>
+        </form>
+        <a href="/auth/uploads" class="btn btn-outline-primary home-button">Home</a>
+     </div>
+    <h1 style="text-align: center; margin-top: 20px;">User History</h1>
+    <table style="width: 80%; margin: 20px auto; border-collapse: collapse; background-color: #fff; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);">
+        <thead>
+            <tr>
+                <th style="padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd; background-color: #f2f2f2;">Component</th>
+                <th style="padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd; background-color: #f2f2f2;">Value</th>
+                <th style="padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd; background-color: #f2f2f2;">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for component in components_data %}
+            <tr>
+                <td style="padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd;">{{ component.component }}</td>
+                <td style="padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd;">{{ component.value }}</td>
+                <td style="padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd;">{{ component.date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <!-- Bouton pour afficher le graphique -->
+   
+    
+    <!-- Container to display graph -->
+    
+
+    <!-- Include jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        function showGraphForCurrentUser() {
+            // Send AJAX request to server to get graph data for the current user
+            $.ajax({
+                url: '/uploads/History/graph',
+                method: 'GET',
+                success: function(response) {
+                    // Display the graph in the dedicated container
+                    $('#graphContainer').html(response);
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors
+                    console.error('Error:', error);
+                }
+            });
+        }
+    
+        // Function to handle button click event
+        $(document).ready(function() {
+            $('#showGraphBtn').click(function() {
+                // Call the function to show the graph for the current user
+                showGraphForCurrentUser();
+            });
+        });
+    </script>
+    
+
+    
+</body>
+</html>

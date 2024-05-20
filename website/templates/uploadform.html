@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+        }
+        input[type="file"] {
+            margin-top: 5px;
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Upload File</h2>
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Select File:</label>
+                <input type="file" id="file" name="file">
+            </div>
+            <div class="form-group">
+                <label for="user_components">Table Name:</label>
+                <select id="user_components" name="user_components">
+                    <option value="user_components">User Components</option>
+                    <!-- Add more options for other tables if needed -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="col_str">Column String:</label>
+                <input type="text" id="col_str" name="col_str" placeholder="Enter column string">
+            </div>
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+</body>
+</html>

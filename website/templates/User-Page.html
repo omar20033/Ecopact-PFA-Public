@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendar with Buttons</title>
+<style>
+    body {
+        padding-top: 50px;
+        background-color: #f2f2f2;
+        background-image: url("{{ url_for('static', filename='ecogreen.jpg') }}");
+        font-family: Arial, sans-serif;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .container {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .instructions {
+        font-style: italic;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group:last-child {
+        margin-bottom: 0;
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+
+    .custom-file-upload {
+        border: 2px solid #57a15d;
+        color: #57a15d;
+        background-color: transparent;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+
+    .custom-file-upload:hover {
+        background-color: #57a15d;
+        color: #ffffff;
+    }
+
+    select {
+        margin-bottom: 10px;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #57a15d;
+        color: white;
+        border: none;
+        border-radius: 7px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #478f53;
+    }
+
+    /* Logout button styling */
+    .logout-container {
+        position: fixed;
+        top: 20px; /* Adjust as needed */
+        right: 20px; /* Adjust as needed */
+    }
+
+    .logout-container form {
+        margin: 0;
+    }
+
+    .logout-container button {
+        background-color: #d9534f; /* Red color */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+
+    .logout-container button:hover {
+        background-color: #c9302c; /* Darker shade of red on hover */
+    }
+</style>
+</head>
+<body>
+  
+<div class="container">
+    <!-- Instructions for the user -->
+    <p class="instructions">Please select a file and click the "Upload" button to upload it. You can also view your upload history or make a prediction by clicking the respective buttons below.</p>
+
+    <!-- Form for uploading file -->
+    <div class="form-group">
+        <label for="file-upload" class="custom-file-upload">
+            Choose File
+        </label>
+        <form method="POST" action="/auth/uploads" enctype="multipart/form-data">
+            <input id="file-upload" type="file" name="file">
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+    
+    <!-- Form for viewing upload history -->
+    <div class="form-group">
+        <form method="POST" action="/auth/uploads/History" enctype="multipart/form-data">
+            <button type="submit">View History</button>
+        </form>
+    </div>
+
+    <!-- Form for prediction -->
+    <div class="form-group">
+        <form method="POST" action="/auth/uploads/Prediction" enctype="multipart/form-data">
+            <select id="component">
+                <option value="sodium">Sodium</option>
+                <option value="phosphate">Phosphate</option>
+                <option value="magnesium">Magnesium</option>
+            </select><br>
+            <button type="submit">Predict</button>
+        </form>
+    </div>
+
+    <!-- Flash messages display -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% endwith %}
+</div>
+
+<!-- Logout button -->
+<div class="logout-container">
+    <form action="{{ url_for('auth.logout') }}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+</div>
+
+</body>
+</html>

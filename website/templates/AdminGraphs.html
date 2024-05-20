@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Matplotlib Plots</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .title {
+            font-family: 'Arial', sans-serif; /* Change font family */
+            font-size: 48px; /* Increase font size */
+            color: #71b68e; /* Set text color */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add text shadow */
+            margin-bottom: 30px; /* Add space below the title */
+        }
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000; /* Ensure it's above other content */
+        }
+        .logout-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.logout-button button {
+    /* Reset default button styles */
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background-color: #c9302c;
+}
+    </style>
+</head>
+<body>
+    <!-- Home Button -->
+    <a href="/auth/admin/home" class="btn btn-outline-primary home-button">Home</a>
+    <form action="{{ url_for('auth.logout') }}" method="post" class="logout-button">
+        <button type="submit">Logout</button>
+    </form>
+    <div class="container mt-5">
+        <h1 class="title text-center">Graphs</h1> <!-- Apply custom styling -->
+            
+        <div class="plots-container">
+            {% for plot in plots %}
+                <div class="plot">
+                    
+                    <img src="data:image/png;base64,{{ plot.image_base64 }}" alt="Matplotlib Plot">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Bootstrap JS (optional, for some features like dropdowns, modals, etc.) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

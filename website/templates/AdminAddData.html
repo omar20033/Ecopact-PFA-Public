@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Upload Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container label {
+            margin-bottom: 8px;
+        }
+
+        .container input[type="file"] {
+            margin-bottom: 20px;
+        }
+
+        .container input[type="text"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        .container button[type="submit"] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .container button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            text-decoration: none;
+            color: #007bff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: 1px solid #007bff;
+            transition: background-color 0.3s ease;
+        }
+
+        .home-button:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .logout-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-button button {
+            /* Reset default button styles */
+            background-color: transparent;
+            border: none;
+            padding: 0;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .logout-button:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation buttons -->
+    <a href="/auth/admin/home" class="home-button">Home</a>
+    <form action="{{ url_for('auth.logout') }}" method="post" class="logout-button">
+        <button type="submit">Logout</button>
+    </form>
+
+    <!-- File upload form -->
+    <div class="container">
+        <form action="/auth/admin/upload" method="post" enctype="multipart/form-data">
+            <label for="file">Select CSV file:</label>
+            <input type="file" id="file" name="file" accept=".csv">
+            <label for="user_id">User ID:</label>
+            <input type="text" id="user_id" name="user_id" required>
+            <button type="submit" class="button-submit">Upload</button>
+        </form>
+    </div>
+</body>
+</html>

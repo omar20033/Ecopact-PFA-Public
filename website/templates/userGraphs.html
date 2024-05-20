@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Graphs</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .title {
+            font-family: 'Arial', sans-serif; /* Changer la famille de police */
+            font-size: 48px; /* Augmenter la taille de la police */
+            color: #72a78c; /* Définir la couleur du texte */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Ajouter une ombre au texte */
+            margin-bottom: 30px; /* Ajouter de l'espace en dessous du titre */
+        }
+        .plot {
+            margin-bottom: 20px; /* Ajouter de l'espace entre les graphiques */
+        }
+        .logout-container {
+    position: fixed;
+    top: 20px; /* Adjust as needed */
+    right: 20px; /* Adjust as needed */
+    display: flex;
+    align-items: center;
+}
+
+.logout-container form {
+    margin: 0;
+}
+
+.logout-container button {
+    background-color: #d9534f; /* Red color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-right: 10px; /* Spacing between buttons */
+}
+
+.logout-container button:hover {
+    background-color: #c9302c; /* Darker shade of red on hover */
+}
+
+.home-button {
+    background-color: transparent;
+    border: 2px solid #007bff; /* Blue border */
+    color: #007bff; /* Blue text */
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none; /* Remove underline */
+    transition: background-color 0.3s ease;
+    margin-right: 10px; /* Spacing between buttons */
+}
+
+.home-button:hover {
+    background-color: #007bff; /* Dark blue on hover */
+    color: white; /* White text on hover */
+}
+    </style>
+</head>
+<body>
+    <div class="logout-container">
+        <form action="{{ url_for('auth.logout') }}" method="post">
+            <button type="submit">Logout</button>
+        </form>
+        <a href="/auth/uploads" class="btn btn-outline-primary home-button">Home</a>
+    </div>
+    <div class="container mt-5">
+        <h1 class="title text-center">User Graphs</h1> <!-- Appliquer un style personnalisé au titre -->
+        <div class="plots-container">
+            {% for plot in plots %}
+                <div class="plot">
+                    <img src="data:image/png;base64,{{ plot.image_base64 }}" alt="Matplotlib Plot">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Bootstrap JS (optionnel, pour certaines fonctionnalités comme les dropdowns, modals, etc.) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

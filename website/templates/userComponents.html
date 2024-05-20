@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Components</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        
+        /* Your CSS styles here */
+        .component-card {
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        .component-card:hover {
+            background-color: #f0f0f0;
+        }
+
+        .component-selected {
+            background-color: #f0f0f0;
+        }
+        .center-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000; /* Ensure it's above other content */
+        }
+    </style>
+</head>
+<body>
+    
+    <h1 class="container-fluid center-content"> Components</h1>
+    <a href="/auth/admin/home" class="btn btn-outline-primary home-button">Home</a>
+    
+    <div id="component-list">
+        <!-- Loop through components and display them -->
+        {% for component in components_data %}
+            <div class="component-card" onclick="showComponentData('{{ component.component }}', '{{ component.value }}', '{{ component.date }}')">
+                <div class="component-info">
+                    <p><strong>Component:</strong> {{ component.component }}</p>
+                    <p><strong>Value:</strong> {{ component.value }}</p>
+                    <p><strong>Date:</strong> {{ component.date }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        function showComponentData(component, value, date) {
+            // Highlight the selected component
+            const componentCards = document.querySelectorAll('.component-card');
+            componentCards.forEach(card => card.classList.remove('component-selected'));
+            event.currentTarget.classList.add('component-selected');
+            
+            // You can do more actions here based on the selected component data
+        }
+    </script>
+</body>
+</html>
